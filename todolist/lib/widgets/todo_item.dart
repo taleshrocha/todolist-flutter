@@ -4,8 +4,15 @@ import 'package:todolist/model/todo.dart';
 
 class TodoItem extends StatelessWidget {
   final Todo todo;
+  final onTodoChanged;
+  final onDeleteItem;
 
-  const TodoItem({Key? key, required this.todo}) : super(key: key);
+  const TodoItem(
+      {Key? key,
+      required this.todo,
+      required this.onTodoChanged,
+      required this.onDeleteItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,8 @@ class TodoItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          print('Clicked on item ');
+          //print('Clicked on item ');
+          onTodoChanged(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -24,7 +32,7 @@ class TodoItem extends StatelessWidget {
         ),
         tileColor: Colors.white,
         leading: Icon(
-          todo.isDone!? Icons.check_box : Icons.check_box_outline_blank,
+          todo.isDone! ? Icons.check_box : Icons.check_box_outline_blank,
           color: colorsBlue,
         ),
         title: Text(
@@ -32,7 +40,7 @@ class TodoItem extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             color: colorsBlack,
-            decoration: todo.isDone!? TextDecoration.lineThrough : null,
+            decoration: todo.isDone! ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Container(
@@ -49,7 +57,8 @@ class TodoItem extends StatelessWidget {
             iconSize: 18,
             icon: Icon(Icons.delete),
             onPressed: () {
-              print('Clicked on delete icon');
+              //print('Clicked on delete icon');
+              onDeleteItem(todo.id);
             },
           ),
         ),
